@@ -345,7 +345,7 @@ function montarStatusPresentes_(aba, t, te) {
       'IF(' + recebidos + '>=' + Q + ',"Recebido",IF(' + ativos + '>=' + Q + ',"Escolhido",IF(' + ativos + '>0,' + ativos + '&" de "&' + Q + '&" escolhidos","Disponível")))))))';
 
   aba.getRange(h + 1, colStatus, aba.getMaxRows() - h, 1).clearDataValidations().clearContent();
-  aba.getRange(h, colStatus).setFormula(formula);
+  definirFormula_(aba.getParent(), aba.getRange(h, colStatus), formula);
   protegerComAviso_(aba, aba.getRange(h, colStatus, aba.getMaxRows() - h + 1, 1), 'Site: status calculado pela aba Escolhas. Não digite aqui.');
 }
 
@@ -368,26 +368,69 @@ function montarResumoPresentes_(planilha, abaLista, t, te) {
   aba.getRange(linhaCab, 5).copyFormatToRange(aba, 6, 6, linhaCab, linhaCab);
   for (var r = linhaCab + 1; r < linhaTotal; r++) {
     var A = 'A' + r;
-    aba.getRange(r, 2).setFormula('=COUNTIF(' + L(t.col.categoria) + ',' + A + ')');
-    if (t.col.total) aba.getRange(r, 3).setFormula('=SUMIF(' + L(t.col.categoria) + ',' + A + ',' + L(t.col.total) + ')');
-    aba.getRange(r, 4).setFormula('=SUMIFS(' + E('valor') + ',' + E('categoria') + ',' + A + ',' + E('conferido') + ',TRUE)-SUMIFS(' +
+    var f = function (col, formula) { definirFormula_(planilha, aba.getRange(r, col), formula); };
+    f(2, '=COUNTIF(' + L(t.col.categoria) + ',' + A + ')');
+    if (t.col.total) f(3, '=SUMIF(' + L(t.col.categoria) + ',' + A + ',' + L(t.col.total) + ')');
+    f(4, '=SUMIFS(' + E('valor') + ',' + E('categoria') + ',' + A + ',' + E('conferido') + ',TRUE)-SUMIFS(' +
       E('valor') + ',' + E('categoria') + ',' + A + ',' + E('conferido') + ',TRUE,' + E('cancelado') + ',TRUE)');
-    aba.getRange(r, 6).setFormula('=SUMIFS(' + E('valor') + ',' + E('categoria') + ',' + A + ')-SUMIFS(' +
+    f(6, '=SUMIFS(' + E('valor') + ',' + E('categoria') + ',' + A + ')-SUMIFS(' +
       E('valor') + ',' + E('categoria') + ',' + A + ',' + E('cancelado') + ',TRUE)');
   }
-  aba.getRange(linhaTotal, 6).setFormula('=SUM(F' + (linhaCab + 1) + ':F' + (linhaTotal - 1) + ')');
+  definirFormula_(planilha, aba.getRange(linhaTotal, 6), '=SUM(F' + (linhaCab + 1) + ':F' + (linhaTotal - 1) + ')');
   return true;
 }
 
-/** Grava uma grade: textos/números com setValues e fórmulas com setFormula (sempre em inglês, com vírgula). */
+/** Grava uma grade: textos/números com setValues e fórmulas com definirFormula_. */
 function escreverGrade_(aba, linhas) {
   var largura = linhas[0].length;
   aba.getRange(1, 1, linhas.length, largura).setValues(linhas.map(function (l) {
     return l.map(function (v) { return typeof v === 'string' && v.charAt(0) === '=' ? '' : v; });
   }));
   linhas.forEach(function (l, i) {
-    l.forEach(function (v, j) { if (typeof v === 'string' && v.charAt(0) === '=') aba.getRange(i + 1, j + 1).setFormula(v); });
+    l.forEach(function (v, j) { if (typeof v === 'string' && v.charAt(0) === '=') definirFormula_(aba.getParent(), aba.getRange(i + 1, j + 1), v); });
   });
+}
+
+// ---------- fórmulas no idioma da planilha ----------
+// As fórmulas aqui são escritas com VÍRGULA entre os argumentos. Planilhas em português usam
+// PONTO E VÍRGULA. Em vez de supor, testamos uma vez por planilha qual separador ela aceita.
+
+var SEPARADORES_ = {};
+
+function separadorFormulas_(planilha) {
+  var id = planilha.getId();
+  if (SEPARADORES_[id]) return SEPARADORES_[id];
+  var aba = planilha.insertSheet('_teste_formula_' + Date.now());
+  try {
+    var celula = aba.getRange(1, 1);
+    var opcoes = [',', ';'];
+    for (var i = 0; i < opcoes.length; i++) {
+      var s = opcoes[i];
+      celula.setFormula('=IF(TRUE' + s + 'SUM(1' + s + '2)' + s + '0)');
+      SpreadsheetApp.flush();
+      if (celula.getValue() === 3) return (SEPARADORES_[id] = s);
+    }
+  } finally {
+    planilha.deleteSheet(aba);
+  }
+  throw new ErroEstrutura('Não consegui descobrir o formato das fórmulas da planilha "' + planilha.getName() + '" (idioma/região).');
+}
+
+/** Troca a vírgula entre argumentos pelo separador da planilha (fora de textos "…" e nomes de aba '…'). */
+function localizarFormula_(formula, separador) {
+  if (separador === ',') return formula;
+  var saida = '', aspas = false, apostrofo = false;
+  for (var i = 0; i < formula.length; i++) {
+    var ch = formula.charAt(i);
+    if (ch === '"' && !apostrofo) aspas = !aspas;
+    else if (ch === "'" && !aspas) apostrofo = !apostrofo;
+    saida += ch === ',' && !aspas && !apostrofo ? separador : ch;
+  }
+  return saida;
+}
+
+function definirFormula_(planilha, intervalo, formula) {
+  intervalo.setFormula(localizarFormula_(formula, separadorFormulas_(planilha)));
 }
 
 function valores_(obj) {

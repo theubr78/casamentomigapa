@@ -5,9 +5,9 @@ const { carregarAppsScript } = require('./apps-script/simulador');
 const { planilhaConvidados, planilhaPresentes, ID_PRESENTES, SEGREDO } = require('./apps-script/dados');
 const { montarEnvelope } = require('../lib/planilha/cliente');
 
-function ambiente({ preparar = true, propriedades } = {}) {
-  const conv = planilhaConvidados();
-  const pres = planilhaPresentes();
+function ambiente({ preparar = true, propriedades, separador } = {}) {
+  const conv = planilhaConvidados(separador);
+  const pres = planilhaPresentes(separador);
   const env = carregarAppsScript({
     convidados: conv, presentes: pres,
     propriedades: propriedades || { SEGREDO_API: SEGREDO, ID_PLANILHA_PRESENTES: ID_PRESENTES }
@@ -40,7 +40,26 @@ describe('Preparar planilhas', () => {
     const resumo = aba(env.conv, 'Resumo');
     const criancas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(r => resumo.linha(r)).find(l => l[0] === 'Crianças');
     assert.deepEqual(criancas.slice(1, 3), [8, 12], 'números de crianças digitados à mão foram preservados');
-    assert.match(resumo.ver(4, 2).f, /^=COUNTIF\('Lista de Convidados'!F5:F,"Confirmado"\)$/);
+    assert.match(resumo.ver(4, 2).f, /^=COUNTIF\('Lista de Convidados'!F5:F;"Confirmado"\)$/);
+  });
+
+  test('planilha em português: nenhuma fórmula com #ERROR! (separador ";")', () => {
+    const env = ambiente();
+    const erros = [];
+    for (const p of [env.conv, env.pres]) {
+      for (const a of p.getSheets()) {
+        a.celulas.forEach((l, i) => (l || []).forEach((x, j) => { if (x && x.v === '#ERROR!') erros.push(`${p.getName()} / ${a.getName()} ${i + 1}:${j + 1} ${x.f}`); }));
+      }
+      assert.ok(!p.getSheets().some(a => a.getName().startsWith('_teste_formula_')), 'a aba temporária de teste foi apagada');
+    }
+    assert.deepEqual(erros, []);
+    assert.match(aba(env.pres, 'Lista de Presentes').ver(5, 9).f, /COUNTIFS\(Escolhas!\$C:\$C;M5:M\)/);
+  });
+
+  test('planilha em inglês: as mesmas fórmulas com ","', () => {
+    const env = ambiente({ separador: ',' });
+    assert.match(aba(env.conv, 'Resumo').ver(4, 2).f, /^=COUNTIF\('Lista de Convidados'!F5:F,"Confirmado"\)$/);
+    assert.notEqual(aba(env.pres, 'Lista de Presentes').ver(5, 9).v, '#ERROR!');
   });
 
   test('presentes: remove a linha TOTAL, cria colunas, IDs, aba Escolhas e Status calculado', () => {

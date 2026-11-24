@@ -96,7 +96,7 @@ function intervalo(aba, r, c, nr, nc) {
     setValues(vals) { cada((rr, cc, i, j) => aba.definir(rr, cc, vals[i][j])); return p; },
     getValue: () => aba.ver(r, c).v,
     setValue(v) { cada((rr, cc) => aba.definir(rr, cc, v)); return p; },
-    setFormula(f) { cada((rr, cc) => { const x = aba.celula(rr, cc); x.v = ''; x.f = f; }); return p; },
+    setFormula(f) { cada((rr, cc) => { const x = aba.celula(rr, cc); x.f = f; x.v = avaliarFormula(f, aba.planilha.separador); }); return p; },
     clearContent() { cada((rr, cc) => { const x = aba.celula(rr, cc); x.v = ''; x.f = undefined; }); return p; },
     setDataValidation(v) { aba.validacoes.push({ r, c, nr, nc, v }); return p; },
     getRow: () => r, getColumn: () => c, getNumRows: () => nr, getNumColumns: () => nc,
@@ -106,15 +106,32 @@ function intervalo(aba, r, c, nr, nc) {
   return p;
 }
 
+/**
+ * Como o Sheets trata uma fórmula gravada: separador de argumentos errado para o idioma da
+ * planilha → '#ERROR!' (foi exatamente o que aconteceu na planilha real em português).
+ * A fórmula de teste do separador (=IF(TRUE;SUM(1;2);0)) devolve 3; as outras não são calculadas.
+ */
+function avaliarFormula(f, separador) {
+  let aspas = false, apostrofo = false;
+  for (const ch of f) {
+    if (ch === '"' && !apostrofo) aspas = !aspas;
+    else if (ch === "'" && !aspas) apostrofo = !apostrofo;
+    else if (!aspas && !apostrofo && (ch === ',' || ch === ';') && ch !== separador) return '#ERROR!';
+  }
+  return /^=IF\(TRUE.SUM\(1.2\).0\)$/.test(f) ? 3 : '';
+}
+
 class Planilha {
-  constructor(id, nome, abas = {}) {
-    this.id = id; this.nome = nome; this.abas = [];
+  /** separador: ';' imita uma planilha em português (padrão), ',' em inglês. */
+  constructor(id, nome, abas = {}, separador = ';') {
+    this.id = id; this.nome = nome; this.abas = []; this.separador = separador;
     Object.keys(abas).forEach(n => this.abas.push(new Aba(this, n, abas[n])));
   }
   getId() { return this.id; }
   getName() { return this.nome; }
   getSheetByName(n) { return this.abas.find(a => a.nome === n) || null; }
   insertSheet(n) { const a = new Aba(this, n); this.abas.push(a); return a; }
+  deleteSheet(a) { this.abas = this.abas.filter(x => x !== a); }
   getSheets() { return this.abas.slice(); }
   setSpreadsheetTimeZone() {}
 }

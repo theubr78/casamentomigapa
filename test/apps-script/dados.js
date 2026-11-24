@@ -5,7 +5,7 @@ const ID_CONVIDADOS = 'planilha-convidados-teste';
 const ID_PRESENTES = 'planilha-presentes-teste';
 const SEGREDO = 'segredo-de-teste-com-mais-de-32-caracteres-0123456789';
 
-function planilhaConvidados() {
+function planilhaConvidados(separador) {
   const p = (n, nome, lado, presenca, sexo) => [n, nome, lado, 'Amigos', 'Enviado', presenca, sexo, ''];
   return new Planilha(ID_CONVIDADOS, 'TESTE – Convidados', {
     'Lista de Convidados': [
@@ -33,10 +33,10 @@ function planilhaConvidados() {
       ['', 'Acompanhamento'],
       ['', 'Presença confirmada', '=COUNTIF($F$5:$F$12;"Confirmado")']
     ]
-  });
+  }, separador);
 }
 
-function planilhaPresentes() {
+function planilhaPresentes(separador) {
   const g = (n, cat, nome, tipo, valor, qtd, obs, link) => [n, cat, nome, tipo, valor, 'Alta', qtd, `=E${n + 5}*G${n + 5}`, 'Disponível', obs, link ? { texto: 'Ver fotos e lojas', link } : '—'];
   return new Planilha(ID_PRESENTES, 'TESTE – Presentes', {
     'Lista de Presentes': [
@@ -62,7 +62,7 @@ function planilhaPresentes() {
       ['Lua de mel e momentos', '=1', '=1', '=0', '=0'],
       ['TOTAL', '=SUM(B4:B6)', '=SUM(C4:C6)', '=SUM(D4:D6)', '=0']
     ]
-  });
+  }, separador);
 }
 
 module.exports = { planilhaConvidados, planilhaPresentes, ID_CONVIDADOS, ID_PRESENTES, SEGREDO };
