@@ -1,0 +1,7 @@
+# Quebra de linha padrão (LF) no repositório; imagens e fontes como binário
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.webp binary
+*.woff2 binary
+*.mp4 binary

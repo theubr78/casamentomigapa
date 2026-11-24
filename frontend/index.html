@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Millena &amp; Leonardo · 03.07.2027</title>
+  <meta name="description" content="Rancho Nevado · Entroncamento de Jaguaquara, BA">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Millena &amp; Leonardo · 03.07.2027">
+  <meta property="og:description" content="Rancho Nevado · Entroncamento de Jaguaquara, BA">
+  <meta property="og:image" content="assets/capa.jpg">
+  <meta name="theme-color" content="#F7F6F0">
+  <link rel="icon" type="image/png" href="assets/monograma.png">
+  <!-- Fontes no próprio site. Pré-carrega as da capa (nomes, data, contagem e textos) para a primeira
+       tela já aparecer com a fonte certa, sem o texto "pular" quando a fonte chega. -->
+  <link rel="preload" href="fonts/pinyon-script-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-italico-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fontes.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/config.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+
+<!-- Topo fixo: transparente sobre a capa, sólido depois -->
+<header class="topo" id="topo">
+  <div class="topo__barra">
+    <a href="#capa" class="topo__marca" aria-label="Início">
+      <img class="logo-claro" src="assets/monograma-creme.png" width="135" height="180" alt="Monograma M&amp;L">
+      <img class="logo-escuro" src="assets/monograma.png" width="135" height="180" alt="Monograma M&amp;L">
+    </a>
+    <button class="hamburguer" id="abrir-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Menu em tela cheia -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="menu__fio" aria-hidden="true"></div>
+  <div class="menu__barra">
+    <img src="assets/monograma.png" width="135" height="180" alt="Monograma M&amp;L">
+    <button class="fechar-x" id="fechar-menu" aria-label="Fechar menu"><span></span><span></span></button>
+  </div>
+  <div class="menu__corpo">
+    <nav class="menu__nav" aria-label="Seções do site">
+      <a href="#local"><span aria-hidden="true">01</span><span>Local do casamento</span></a>
+      <a href="#grande-dia"><span aria-hidden="true">02</span><span>O grande dia</span></a>
+      <a href="#manual"><span aria-hidden="true">03</span><span>Manual do convidado</span></a>
+      <a href="#confirmar"><span aria-hidden="true">04</span><span>Confirmar presença</span></a>
+      <a href="#presentes"><span aria-hidden="true">05</span><span>Lista de presentes</span></a>
+      <a href="#dicas"><span aria-hidden="true">06</span><span>Dicas da região</span></a>
+    </nav>
+  </div>
+  <p class="menu__data">03 · 07 · 2027</p>
+</div>
+
+<main>
+
+<!-- 01 · CAPA -->
+<section id="capa" class="capa">
+  <img class="foto-fundo" src="assets/capa.jpg" alt="Millena e Leonardo de chapéu, em silhueta ao pôr do sol" fetchpriority="high">
+  <div class="veu" aria-hidden="true"></div>
+  <div class="fio" aria-hidden="true"></div>
+  <div class="capa__conteudo">
+    <p class="capa__chamada">Vamos nos casar</p>
+    <h1 class="capa__nomes">Millena <span>&amp;</span> Leonardo</h1>
+    <p class="capa__data"><span>03 de julho de 2027</span></p>
+    <p class="capa__local">Rancho Nevado · Entroncamento de Jaguaquara, BA</p>
+
+    <div class="contagem" id="contagem" role="timer" aria-label="Contagem regressiva">
+      <div><div class="contagem__num" data-cd="dias">0</div><div class="contagem__rotulo">Dias</div></div>
+      <div class="contagem__sep"></div>
+      <div><div class="contagem__num" data-cd="horas">00</div><div class="contagem__rotulo">Horas</div></div>
+      <div class="contagem__sep"></div>
+      <div><div class="contagem__num" data-cd="minutos">00</div><div class="contagem__rotulo">Minutos</div></div>
+    </div>
+    <p class="contagem-mensagem" id="contagem-mensagem" hidden></p>
+
+    <a href="#confirmar" class="btn btn--primario">Confirmar presença</a>
+  </div>
+</section>
+
+<!-- versículo de abertura -->
+<section class="versiculo versiculo--abertura" aria-label="Salmos 118:23">
+  <figure data-reveal>
+    <blockquote>“Isto procede do Senhor e é maravilhoso aos nossos olhos.”</blockquote>
+    <figcaption class="eyebrow eyebrow--sm">Salmos 118:23</figcaption>
+    <img src="assets/monograma.png" width="135" height="180" alt="">
+  </figure>
+</section>
+
+<!-- 02 · BOAS-VINDAS -->
+<section id="boas-vindas" class="boas-vindas">
+  <div class="boas-vindas__grade">
+    <div class="boas-vindas__foto">
+      <img class="foto-fundo" src="assets/foto-5682.webp" alt="Millena e Leonardo sorrindo sob a árvore" loading="lazy">
+    </div>
+    <div class="boas-vindas__texto">
+      <div>
+        <h2 class="titulo" data-reveal>Sejam <em>bem-vindos!</em></h2>
+        <div class="texto texto-pilha" data-reveal>
+          <p>Nós criamos este espaço com muito carinho para compartilhar com você um pouco sobre este dia tão único e especial em nossas vidas. Esperamos que você consiga sentir, desde já, o quanto estamos felizes e gratos ao Senhor por tudo o que Ele tem feito.</p>
+          <p>Aqui reunimos informações importantes para o nosso grande dia: orientações sobre a cidade, hospedagem, restaurantes e salões/studios, além da confirmação de presença e da nossa lista de presentes.</p>
+          <p>Celebrar este dia será a realização de um grande sonho e o início da nossa família. Ter você como testemunha deste momento será muito especial.</p>
+        </div>
+        <div class="boas-vindas__assinatura" data-reveal>
+          <p class="texto">Com amor e carinho,</p>
+          <p class="assinatura">Millena &amp; Leonardo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="versiculo" aria-label="Colossenses 3:14">
+  <figure data-reveal>
+    <blockquote>“Acima de tudo isto, porém, esteja o amor, que é o vínculo da perfeição.”</blockquote>
+    <figcaption class="eyebrow eyebrow--sm">Colossenses 3:14</figcaption>
+    <img src="assets/monograma.png" width="135" height="180" alt="">
+  </figure>
+</section>
+
+<!-- 03 · LOCAL -->
+<section id="local" class="local">
+  <div class="container">
+    <div class="divisor"></div>
+    <div class="local__topo">
+      <figure class="local__aquarela" data-reveal>
+        <img src="assets/aquarela.jpg" alt="Aquarela do Rancho Nevado: balanço, cerca, varal de lâmpadas e o pôr do sol" loading="lazy">
+      </figure>
+      <div class="local__texto">
+        <div data-reveal>
+          <p class="eyebrow">Local do casamento</p>
+          <h2 class="titulo">Um lugar <em>cheio de significado</em></h2>
+        </div>
+        <div class="texto texto-pilha" data-reveal>
+          <p>Foi aqui, exatamente neste lugar, que no dia 20 de junho de 2026, ao pôr do sol, aconteceu o pedido de casamento: o nosso segundo “sim”. Desde então, vivemos como quem sonha, contando os dias para o nosso grande dia.</p>
+          <p>E é aqui, no mesmo lugar do nosso segundo “sim”, que queremos dizer o “sim” para sempre, cercados de quem amamos. Esperamos você no dia 3 de julho de 2027, às 15h, no Rancho Nevado, Entroncamento de Jaguaquara.</p>
+        </div>
+        <div class="local__endereco cartao cartao--areia" data-reveal>
+          <div class="cartao__fio">
+            <p class="eyebrow">Endereço</p>
+            <p class="local__endereco-texto">Rancho Nevado · FWCR+MQ, Entroncamento de Jaguaquara, BA · CEP 45345-000</p>
+            <div class="grade-botoes">
+              <a class="btn btn--primario" href="https://share.google/6ncJAJ3yZQbCidwIP" target="_blank" rel="noopener">Abrir no Google Maps</a>
+              <a class="btn btn--contorno" href="https://waze.com/ul?ll=-13.5283125,-40.0580625&amp;navigate=yes" target="_blank" rel="noopener">Abrir no Waze</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="local__rota">
+      <div class="local__rota-texto" data-reveal>
+        <p class="eyebrow">Como chegar</p>
+        <p class="texto">O Rancho Nevado fica no Entroncamento de Jaguaquara, a cerca de 19 minutos do centro de Jaguaquara. Saindo do centro, siga pela BA-420 até o Entroncamento e entre na BR-116, sentido Jequié. A entrada do Rancho fica ao lado do galpão da Truckz. Veja o caminho no mapa abaixo.</p>
+      </div>
+      <div class="local__mapa" data-reveal>
+        <iframe title="Rota do centro de Jaguaquara até o Rancho Nevado" src="https://maps.google.com/maps?saddr=Jaguaquara,%20BA&amp;daddr=-13.5283125,-40.0580625&amp;hl=pt-BR&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vídeo do ensaio, em largura total -->
+<section class="video" id="video" aria-label="Vídeo do ensaio">
+  <button class="video__capa" id="tocar-video" aria-label="Assistir ao vídeo do ensaio">
+    <img class="foto-fundo" src="assets/foto-5681.webp" alt="" loading="lazy">
+    <span class="veu" aria-hidden="true"></span>
+    <span class="fio" aria-hidden="true"></span>
+    <span class="video__play">
+      <span class="video__circulo" aria-hidden="true"></span>
+      <span class="video__aviso" id="video-aviso">[vídeo do ensaio · link do YouTube]</span>
+    </span>
+  </button>
+</section>
+
+<!-- 04 · O GRANDE DIA -->
+<section id="grande-dia" class="grande-dia">
+  <div class="grande-dia__grade">
+    <div class="grande-dia__texto">
+      <div data-reveal>
+        <p class="eyebrow">O grande dia</p>
+        <h2 class="titulo">Sábado, <em>3 de julho de 2027</em></h2>
+      </div>
+      <ol class="linha-tempo" data-reveal>
+        <li>
+          <p class="eyebrow">Cerimônia</p>
+          <p class="linha-tempo__desc"><span class="linha-tempo__hora">15h</span>no gramado, com o pôr do sol</p>
+        </li>
+        <li>
+          <p class="eyebrow">Recepção</p>
+          <p class="linha-tempo__desc">Logo após a cerimônia, na própria fazenda</p>
+        </li>
+      </ol>
+      <div class="grade-botoes" data-reveal>
+        <a class="btn btn--primario" href="https://share.google/6ncJAJ3yZQbCidwIP" target="_blank" rel="noopener">Abrir no Google Maps</a>
+        <a class="btn btn--contorno" href="https://waze.com/ul?ll=-13.5283125,-40.0580625&amp;navigate=yes" target="_blank" rel="noopener">Abrir no Waze</a>
+      </div>
+    </div>
+    <div class="grande-dia__foto" data-reveal>
+      <img src="assets/foto-5692.webp" alt="Millena e Leonardo junto à cerca, sob a árvore da fazenda" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- 05 · MANUAL DO CONVIDADO -->
+<section id="manual" class="manual">
+  <div class="faixa-foto">
+    <img class="foto-fundo" src="assets/foto-5684.webp" alt="Botas dos noivos" loading="lazy">
+    <div class="veu" aria-hidden="true"></div>
+    <div class="fio" aria-hidden="true"></div>
+    <div class="faixa-foto__conteudo">
+      <p class="eyebrow eyebrow--claro">Manual do convidado</p>
+      <h2 class="titulo titulo--claro">Para você aproveitar <em>cada momento com a gente</em></h2>
+    </div>
+  </div>
+
+  <div class="manual__corpo">
+    <p class="manual__intro" data-reveal>Preparamos tudo com muito carinho e reunimos aqui algumas orientações para que você chegue tranquilo, confortável e pronto para celebrar.</p>
+
+    <div class="traje cartao cartao--creme">
+      <div class="cartao__fio">
+        <div class="traje__cabeca" data-reveal>
+          <p class="eyebrow">Traje: esporte fino</p>
+          <h3 class="subtitulo">O que <em>vestir</em></h3>
+        </div>
+        <div class="traje__fotos">
+          <figure data-reveal>
+            <img src="assets/traje-eles.jpg" alt="Referência de traje esporte fino masculino" loading="lazy" style="aspect-ratio:1071/593">
+            <figcaption>Para eles</figcaption>
+          </figure>
+          <figure data-reveal>
+            <img src="assets/traje-elas.jpg" alt="Referência de traje esporte fino feminino" loading="lazy" style="aspect-ratio:1095/614">
+            <figcaption>Para elas</figcaption>
+          </figure>
+        </div>
+        <div class="avisos">
+          <div data-reveal>
+            <p class="eyebrow eyebrow--tight">Na grama</p>
+            <p class="texto">A cerimônia será no gramado: prefira saltos grossos, botas ou sapatos baixos.</p>
+          </div>
+          <div data-reveal>
+            <p class="eyebrow eyebrow--tight">Noite fria</p>
+            <p class="texto">Em julho, a noite costuma ser fria no Entroncamento de Jaguaquara.</p>
+          </div>
+          <div data-reveal>
+            <p class="eyebrow eyebrow--tight">O branco é da noiva</p>
+            <p class="texto">Evite branco e tons muito próximos, como off-white e bege claro.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="orientacoes">
+      <li data-reveal><div class="orientacoes__num">01</div><div><h3>Confirme sua presença</h3><p class="texto">Pelo site, até 3 de maio de 2027. A entrada será pela lista de confirmados.</p></div></li>
+      <li data-reveal><div class="orientacoes__num">02</div><div><h3>Convite individual</h3><p class="texto">Cada nome foi escolhido com muito carinho. Por isso, o convite vale só para quem está nele.</p></div></li>
+      <li data-reveal><div class="orientacoes__num">03</div><div><h3>Chegue com antecedência</h3><p class="texto">A cerimônia começa às 15h. No inverno o sol se põe mais cedo, então chegue cedo para não perder nenhum minuto.</p></div></li>
+      <li data-reveal><div class="orientacoes__num">04</div><div><h3>Café de boas-vindas</h3><p class="texto">Ao chegar, um café quentinho espera por você antes da cerimônia.</p></div></li>
+      <li data-reveal><div class="orientacoes__num">05</div><div><h3>Registre tudo</h3><p class="texto">Tire muitas fotos, grave vídeos e aproveite cada instante desse dia único e especial. Queremos ver esse dia pelos seus olhos também!</p></div></li>
+      <li data-reveal><div class="orientacoes__num">06</div><div><h3>Hora dos doces</h3><p class="texto">A mesa de doces será aberta em um momento especial da festa. Aproveite!</p></div></li>
+      <li data-reveal><div class="orientacoes__num">07</div><div><h3>Ficou com alguma dúvida?</h3><p class="texto">Entre em contato com a gente. Vamos adorar ajudar.</p><a class="link" data-whats href="#" target="_blank" rel="noopener">[WhatsApp dos noivos]</a></div></li>
+    </ol>
+
+    <div class="divirta-se cartao cartao--vinho" data-reveal>
+      <div class="cartao__fio">
+        <img src="assets/monograma-creme.png" width="135" height="180" alt="">
+        <p>Divirta-se muito!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · CONFIRMAÇÃO DE PRESENÇA -->
+<section id="confirmar" class="confirmar">
+  <img class="foto-fundo" src="assets/foto-5685.webp" alt="" loading="lazy">
+  <div class="veu" aria-hidden="true"></div>
+  <div class="confirmar__cartao cartao cartao--creme">
+    <div class="cartao__fio">
+      <div class="confirmar__cabeca">
+        <img src="assets/monograma.png" width="135" height="180" alt="">
+        <p class="eyebrow">Confirmação de presença</p>
+        <h2 class="titulo">Vamos celebrar <em>juntos?</em></h2>
+        <p class="texto">Preparamos tudo com muito carinho para receber você. O convite é individual e intransferível. Confirme até <span data-prazo-texto>3 de maio de 2027</span>.</p>
+      </div>
+
+      <div class="rsvp" id="rsvp">
+
+        <!-- Prazo encerrado -->
+        <div class="rsvp__etapa" data-etapa="encerrado" hidden>
+          <p class="rsvp__titulo">O prazo de confirmação terminou</p>
+          <p class="texto" style="margin-top:14px;line-height:1.65">As confirmações foram encerradas em <span data-prazo-texto>3 de maio de 2027</span>. Obrigado por todo o carinho! Se precisar falar com a gente, estamos por aqui:</p>
+          <a class="link" data-whats href="#" target="_blank" rel="noopener">[WhatsApp dos noivos]</a>
+        </div>
+
+        <!-- Busca pelo nome -->
+        <form class="rsvp__etapa" data-etapa="busca" id="form-busca" novalidate>
+          <label class="rsvp__rotulo" for="rsvp-nome">Digite seu nome como está no convite</label>
+          <input class="campo" id="rsvp-nome" name="nome" type="text" placeholder="Seu nome" autocomplete="off" autocapitalize="words" spellcheck="false" required>
+          <p class="aviso" role="alert" data-aviso hidden></p>
+          <button class="btn btn--primario btn--grande btn--bloco" type="submit" id="btn-buscar">Buscar convite</button>
+        </form>
+
+        <!-- Convite encontrado: marcar cada pessoa -->
+        <div class="rsvp__etapa" data-etapa="encontrado" hidden>
+          <p class="eyebrow eyebrow--tight">Convidados deste convite</p>
+          <div id="rsvp-pessoas"></div>
+          <p class="aviso" role="alert" data-aviso hidden style="margin-top:16px"></p>
+          <button class="btn btn--primario btn--grande btn--bloco" type="button" id="btn-confirmar" style="margin-top:24px">Confirmar presença</button>
+          <button class="link-botao" type="button" data-acao="recomecar">Buscar outro nome</button>
+        </div>
+
+        <!-- Sucesso -->
+        <div class="rsvp__etapa rsvp__sucesso" data-etapa="sucesso" hidden>
+          <div class="selo" aria-hidden="true"><div><img src="assets/monograma-creme.png" width="135" height="180" alt=""></div></div>
+          <p class="rsvp__obrigado">Obrigado <em>por responder!</em></p>
+          <div class="resumo">
+            <div id="resumo-vao" hidden><p class="eyebrow eyebrow--tight">Vão</p><p class="valor"></p></div>
+            <div id="resumo-nao" hidden><p class="eyebrow eyebrow--tight">Não poderão ir</p><p class="valor"></p></div>
+          </div>
+          <div class="grade-botoes">
+            <a class="btn btn--primario" href="#manual">Manual do convidado</a>
+            <a class="btn btn--contorno" href="#presentes">Lista de presentes</a>
+          </div>
+        </div>
+
+        <!-- Já respondido -->
+        <div class="rsvp__etapa" data-etapa="respondido" hidden>
+          <p class="rsvp__titulo">Este convite já foi respondido</p>
+          <p style="margin-top:8px;font-size:16px;line-height:1.5;color:var(--oliva)">Resposta enviada em <span id="rsvp-data-anterior"></span></p>
+          <div class="anteriores" id="rsvp-anteriores"></div>
+          <p class="texto" style="margin-top:20px;line-height:1.6">Você pode alterar a resposta até <span data-prazo-texto>3 de maio de 2027</span>.</p>
+          <button class="btn btn--contorno btn--grande btn--bloco" type="button" data-acao="alterar" style="margin-top:18px">Alterar resposta</button>
+          <button class="link-botao" type="button" data-acao="recomecar">Buscar outro nome</button>
+        </div>
+
+        <!-- Não encontrado -->
+        <div class="rsvp__etapa" data-etapa="naoEncontrado" hidden>
+          <p class="texto" style="line-height:1.65">Não encontramos esse nome. Confira como está escrito no convite ou fale com a gente</p>
+          <a class="link" data-whats href="#" target="_blank" rel="noopener">[WhatsApp dos noivos]</a>
+          <button class="btn btn--primario btn--grande btn--bloco" type="button" data-acao="tentar">Tentar novamente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · LISTA DE PRESENTES -->
+<section id="presentes" class="presentes">
+  <div style="max-width:var(--largura);margin:0 auto">
+    <div class="presentes__cabeca">
+      <div data-reveal>
+        <p class="eyebrow">Lista de presentes</p>
+        <h2 class="titulo">A sua presença é <em>o nosso maior presente</em></h2>
+      </div>
+      <div data-reveal>
+        <p class="texto">Mas, se quiser nos presentear, preparamos algumas opções especiais, que vão nos ajudar a construir o nosso lar e a viver os primeiros passos da nossa nova família. É só escolher o presente e dizer se prefere comprá-lo ou nos enviar o valor por Pix. Cada gesto de carinho será lembrado com muita gratidão.</p>
+        <p class="texto" style="margin-top:20px;line-height:1.6">Com amor,</p>
+        <p class="assinatura">Millena &amp; Leonardo</p>
+      </div>
+    </div>
+    <!-- Preenchido por js/app.js a partir de GET /api/presentes -->
+    <div class="presentes__grade" id="lista-presentes" aria-busy="true"></div>
+  </div>
+</section>
+
+<!-- 08 · DICAS DA REGIÃO -->
+<section id="dicas" class="dicas">
+  <div class="faixa-foto faixa-foto--alta">
+    <img class="foto-fundo" src="assets/foto-5687.webp" alt="Millena e Leonardo na caminhonete" loading="lazy">
+    <div class="veu" aria-hidden="true"></div>
+    <div class="fio" aria-hidden="true"></div>
+    <div class="faixa-foto__conteudo">
+      <p class="eyebrow eyebrow--claro">Dicas para o grande dia</p>
+      <h2 class="titulo titulo--claro">Para você <em>aproveitar a região</em></h2>
+    </div>
+  </div>
+
+  <div class="container">
+    <nav class="atalhos" aria-label="Atalhos das dicas" id="atalhos-dicas"></nav>
+
+    <div class="rota cartao cartao--creme">
+      <div class="cartao__fio">
+        <img data-reveal src="assets/rota-salvador.jpg" alt="Mapa da rota de Salvador até Jaguaquara" loading="lazy">
+        <div class="rota__texto" data-reveal>
+          <h3 class="subtitulo">Vindo de <em>Salvador</em></h3>
+          <p class="texto">Jaguaquara fica a cerca de 5 horas de Salvador, de carro. O caminho mais usado é pela BR-324 até Feira de Santana e depois pela BR-116, passando por Santo Estêvão e Milagres, até o Entroncamento de Jaguaquara. A entrada do Rancho fica no final do Entroncamento, ao lado do galpão da Truckz.</p>
+          <a class="btn btn--primario" href="https://www.google.com/maps/dir/?api=1&amp;origin=Salvador,%20BA&amp;destination=-13.5283125,-40.0580625&amp;travelmode=driving" target="_blank" rel="noopener">Ver rota no Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preenchido por js/app.js a partir de DICAS (js/dados.js) -->
+    <div id="guias"></div>
+  </div>
+</section>
+
+<!-- 09 · ENCERRAMENTO -->
+<img class="foto-final" src="assets/final.jpg" alt="Millena e Leonardo à noite, sob o varal de lâmpadas" loading="lazy">
+<footer class="rodape">
+  <div class="rodape__fio">
+    <blockquote>“Provai e vede que o Senhor é bom; feliz é quem nele confia.”</blockquote>
+    <p class="eyebrow eyebrow--claro eyebrow--sm rodape__ref">Salmos 34:8</p>
+    <img src="assets/monograma-creme.png" width="135" height="180" alt="">
+    <p class="eyebrow eyebrow--claro rodape__com-amor">Com amor,</p>
+    <p class="assinatura">Millena &amp; Leonardo</p>
+  </div>
+</footer>
+</main>
+
+<!-- TRILHA SONORA -->
+<div class="trilha" id="trilha" role="dialog" aria-label="Nossa trilha" hidden>
+  <div>
+    <div class="trilha__cabeca">
+      <p>Nossa <em>trilha</em></p>
+      <button class="trilha__fechar" id="fechar-trilha">Fechar</button>
+    </div>
+    <div id="trilha-player"><div class="trilha__vazio">[player da playlist do Spotify]</div></div>
+  </div>
+</div>
+<button class="botao-musica" id="botao-musica" aria-label="Ouvir nossa trilha" aria-expanded="false" aria-controls="trilha">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E1A2A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17.5V5.5l10-2v12"></path><circle cx="6.5" cy="17.5" r="2.5"></circle><circle cx="16.5" cy="15.5" r="2.5"></circle></svg>
+</button>
+
+<!-- PAINEL PRESENTEAR (bottom sheet)
+     Passo 1: escolher como presentear → "Vou comprar" ou "Prefiro dar o valor por Pix"
+     Comprar: nome + recado → reserva 1 unidade → mostra loja e endereço de entrega
+     Pix: QR Code com o valor + copia e cola → "Já fiz o Pix" com nome + recado -->
+<div class="pix-veu" id="pix-veu" aria-hidden="true"></div>
+<div class="pix" id="pix" role="dialog" aria-modal="true" aria-labelledby="pix-titulo" aria-hidden="true">
+  <div class="pix__fio">
+    <div class="pix__puxador"></div>
+    <p class="eyebrow eyebrow--tight" id="pix-titulo">Presentear</p>
+    <p class="pix__nome" id="pix-nome"></p>
+    <p class="pix__valor" id="pix-valor"></p>
+
+    <!-- Passo 1 -->
+    <div data-passo="modo">
+      <p class="texto pix__pergunta">Como você prefere presentear?</p>
+      <div class="modos">
+        <button type="button" class="modo" data-modo="comprar" id="modo-comprar">
+          <span class="modo__titulo">Vou comprar o presente</span>
+          <span class="modo__desc">Você compra onde preferir e envia para nós.</span>
+        </button>
+        <button type="button" class="modo" data-modo="pix">
+          <span class="modo__titulo">Prefiro dar o valor por Pix</span>
+          <span class="modo__desc">Você envia o valor e nós compramos.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Comprar: identificação -->
+    <form data-passo="comprar" id="form-comprar" novalidate hidden>
+      <p class="texto pix__pergunta">Vamos reservar este presente no seu nome, para ninguém escolher o mesmo.</p>
+      <label class="pix__rotulo" for="comprar-nome">Seu nome</label>
+      <input class="campo campo--sm" id="comprar-nome" name="nome" type="text" autocomplete="name" required>
+      <label class="pix__rotulo" for="comprar-mensagem">Recado para os noivos (opcional)</label>
+      <textarea class="campo campo--sm" id="comprar-mensagem" name="mensagem" maxlength="500"></textarea>
+      <p class="aviso" role="alert" data-aviso hidden></p>
+      <button class="btn btn--primario btn--grande btn--bloco" type="submit" id="btn-reservar">Reservar presente</button>
+      <button class="link-botao" type="button" data-voltar>Escolher outra forma</button>
+    </form>
+
+    <!-- Comprar: reservado -->
+    <div data-passo="reservado" hidden>
+      <p class="pix__ok">Presente reservado. <em>Obrigado!</em></p>
+      <div id="reservado-loja" hidden>
+        <p class="eyebrow eyebrow--tight pix__subtitulo">Onde comprar</p>
+        <a class="btn btn--primario btn--grande btn--bloco" id="link-loja" href="#" target="_blank" rel="noopener">Ver o presente na loja</a>
+        <p class="texto pix__nota">Pode comprar em outra loja, se preferir.</p>
+      </div>
+      <div id="reservado-entrega" hidden>
+        <p class="eyebrow eyebrow--tight pix__subtitulo">Endereço de entrega</p>
+        <p class="pix__endereco" id="endereco-entrega"></p>
+      </div>
+    </div>
+
+    <!-- Pix -->
+    <div data-passo="pix" hidden>
+      <div class="pix__qr" id="pix-qr">Gerando QR Code…</div>
+      <label class="eyebrow" for="pix-codigo">Pix copia e cola</label>
+      <input class="campo campo--sm" id="pix-codigo" type="text" readonly>
+      <button class="btn btn--primario btn--grande btn--bloco" type="button" id="copiar-pix">Copiar código</button>
+      <div class="pix__dados">
+        <span>Recebedor: <span id="pix-recebedor"></span></span>
+        <span>Sem taxas</span>
+      </div>
+      <form class="pix__recado" id="form-recado" novalidate>
+        <p class="texto">Já fez o Pix? Conte pra gente quem presenteou e deixe um recado.</p>
+        <label class="pix__rotulo" for="recado-nome">Seu nome</label>
+        <input class="campo campo--sm" id="recado-nome" name="nome" type="text" autocomplete="name" required>
+        <label class="pix__rotulo" for="recado-mensagem">Recado (opcional)</label>
+        <textarea class="campo campo--sm" id="recado-mensagem" name="mensagem" maxlength="500"></textarea>
+        <p class="aviso" role="alert" data-aviso hidden></p>
+        <button class="btn btn--contorno btn--grande btn--bloco" type="submit" id="enviar-recado">Avisar os noivos</button>
+      </form>
+      <button class="link-botao" type="button" data-voltar id="voltar-pix">Escolher outra forma</button>
+    </div>
+
+    <button class="btn btn--contorno btn--grande btn--bloco pix__fechar" type="button" id="fechar-pix">Fechar</button>
+  </div>
+</div>
+
+<script src="js/dados.js"></script>
+</body>
+</html>

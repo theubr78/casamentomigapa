@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel dos noivos</title>
+  <link rel="icon" type="image/png" href="../assets/monograma.png">
+  <link rel="stylesheet" href="../css/fontes.css">
+  <link rel="stylesheet" href="admin.css">
+  <script src="../js/config.js" defer></script>
+  <script src="admin.js" defer></script>
+</head>
+<body>
+
+<!-- Entrar -->
+<main class="entrar" id="tela-entrar" hidden>
+  <form class="cartao" id="form-entrar">
+    <img src="../assets/monograma.png" alt="" width="46">
+    <h1>Painel dos noivos</h1>
+    <label for="token">Senha do painel</label>
+    <input id="token" type="password" autocomplete="current-password" required>
+    <p class="erro" id="erro-entrar" role="alert" hidden></p>
+    <button class="btn btn--primario" type="submit">Entrar</button>
+  </form>
+</main>
+
+<!-- Painel -->
+<div id="tela-painel" hidden>
+  <header class="topo">
+    <div class="topo__barra">
+      <div class="marca"><img src="../assets/monograma.png" alt="" height="36"><span>Painel dos noivos</span></div>
+      <div class="acoes">
+        <a class="btn btn--contorno btn--sm" href="../" target="_blank" rel="noopener">Ver site</a>
+        <button class="btn btn--contorno btn--sm" id="sair">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <section class="numeros" id="numeros" aria-label="Resumo"></section>
+
+    <nav class="abas" role="tablist" aria-label="Seções do painel">
+      <button role="tab" aria-selected="true" data-aba="convidados">Convidados</button>
+      <button role="tab" aria-selected="false" data-aba="presentes">Presentes</button>
+      <button role="tab" aria-selected="false" data-aba="escolhas">Escolhas dos convidados</button>
+    </nav>
+
+    <!-- CONVIDADOS -->
+    <section data-painel="convidados">
+      <div class="barra-ferramentas">
+        <label class="campo-inline"><span>Buscar</span><input id="filtro-texto" type="search" placeholder="Nome ou convite"></label>
+        <label class="campo-inline"><span>Status</span>
+          <select id="filtro-status">
+            <option value="">Todos</option><option value="vai">Vão</option><option value="nao">Não vão</option><option value="pendente">Pendentes</option>
+          </select>
+        </label>
+        <div class="espaco"></div>
+        <label class="btn btn--contorno btn--sm arquivo">Importar CSV<input type="file" id="importar-csv" accept=".csv,text/csv"></label>
+        <button class="btn btn--contorno btn--sm" id="exportar-csv">Exportar CSV</button>
+      </div>
+      <p class="dica">CSV com duas colunas: <code>convite,nome</code> — uma pessoa por linha; o mesmo nome de convite agrupa as pessoas.</p>
+
+      <details class="cartao novo">
+        <summary>Adicionar convite</summary>
+        <form id="form-convite" class="grade-form">
+          <label>Nome do convite <input name="rotulo" placeholder="Ex.: Família Souza"></label>
+          <label class="larga">Convidados (um por linha) <textarea name="nomes" rows="3" required></textarea></label>
+          <label class="larga">Observação <input name="observacao"></label>
+          <button class="btn btn--primario btn--sm" type="submit">Adicionar convite</button>
+        </form>
+      </details>
+
+      <div id="lista-convites" class="lista"></div>
+    </section>
+
+    <!-- PRESENTES -->
+    <section data-painel="presentes" hidden>
+      <details class="cartao novo" open>
+        <summary>Adicionar presente</summary>
+        <form id="form-presente" class="grade-form">
+          <label>Nome <input name="nome" required></label>
+          <label>Valor (R$) <input name="valor" inputmode="decimal" placeholder="250,00" required></label>
+          <label>Quantidade p/ comprar <input name="quantidade" type="number" min="0" value="1"></label>
+          <label>Ordem <input name="ordem" type="number" value="0"></label>
+          <label class="larga">Foto (caminho ou URL) <input name="imagem" placeholder="assets/presentes/panelas.jpg"></label>
+          <label class="larga">Link da loja (opcional) <input name="linkLoja" type="url" placeholder="https://www.loja.com.br/produto"></label>
+          <p class="dica larga">Quantidade 0 = presente só por Pix (ex.: experiências da lua de mel). Quando todas as unidades forem reservadas, o site mostra “Já escolhido”.</p>
+          <button class="btn btn--primario btn--sm" type="submit">Adicionar presente</button>
+        </form>
+      </details>
+      <div class="tabela-rolagem"><table class="tabela" id="tabela-presentes"></table></div>
+    </section>
+
+    <!-- ESCOLHAS -->
+    <section data-painel="escolhas" hidden>
+      <p class="dica">“Vai comprar” reserva o presente. “Pix” aparece quando o convidado avisa que mandou o valor. Marque como conferido quando o presente chegar ou o Pix cair no extrato. Excluir uma reserva libera o presente de novo no site.</p>
+      <div class="tabela-rolagem"><table class="tabela" id="tabela-escolhas"></table></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

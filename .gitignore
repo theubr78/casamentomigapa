@@ -1,0 +1,20 @@
+# Dependências (qualquer pasta)
+node_modules/
+
+# Segredos: nunca vão para o GitHub (no Netlify ficam em Environment variables)
+.env
+.env.*
+!.env.example
+
+# Banco local do backend antigo
+*.db
+*.db-*
+
+# Netlify CLI / Apps Script CLI
+.netlify/
+.clasprc.json
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini

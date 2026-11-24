@@ -1,0 +1,31 @@
+{
+  "name": "site-casamento-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API do site de casamento Millena & Leonardo: confirmação de presença, controle de convidados e lista de presentes",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": "22.x || 24.x"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test --test-reporter=spec \"test/*.test.js\"",
+    "importar": "node scripts/importar-convidados.js",
+    "exemplo": "node scripts/dados-exemplo.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.22.3",
+    "express-rate-limit": "^7.5.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.2"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true
+  }
+}
